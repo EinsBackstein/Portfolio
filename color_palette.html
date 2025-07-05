@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D0D0D; /* Darker background */
+            color: #C0C0C0; /* Slightly darker text */
+            margin: 0;
+            padding: 0;
+        }
+        .palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .color {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #1E1E1E; /* Add subtle border for better visibility */
+        }
+        .color:nth-child(3) {
+            background-color: #1a1a1a; /* Alternative Accent: Eerie Black */
+            color: #C0C0C0;
+        }
+        .color:nth-child(4) {
+            background-color: #1f1f23; /* Alternative Secondary Accent: Raisin Black */
+            color: #C0C0C0;
+        }
+        .color:nth-child(5) {
+            background-color: #3ccc41; /* Alternative Highlight: Lime Green */
+            color: #121212;
+        }
+        .color:nth-child(6) {
+            background-color: #2dd931; /* Alternative Success: SGBus Green */
+            color: #121212;
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Palette Visualization</h1>
+    <div class="palette">
+        <div class="color" style="background-color: #121212; color: #E0E0E0;">Background: #121212</div>
+        <div class="color" style="background-color: #E0E0E0; color: #121212;">Text: #E0E0E0</div>
+        <div class="color" style="background-color: #1a1a1a; color: #C0C0C0;">Alternative Accent: #1a1a1a</div>
+        <div class="color" style="background-color: #1f1f23; color: #C0C0C0;">Alternative Secondary Accent: #1f1f23</div>
+        <div class="color" style="background-color: #3ccc41; color: #121212;">Alternative Highlight: #3ccc41</div>
+        <div class="color" style="background-color: #2dd931; color: #121212;">Alternative Success: #2dd931</div>
+    </div>
+</body>
+</html>
