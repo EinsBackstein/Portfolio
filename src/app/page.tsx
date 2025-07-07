@@ -1,33 +1,33 @@
 "use client";
 
-import { useState } from "react";
 
 import DotGrid from "@/components/DotGrid";
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <div className={darkMode ? "dark" : ""}>
-      <div className="relative min-h-screen bg-background text-foreground font-[family-name:var(--font-manrope)]">
-        <button
-          className="absolute top-4 right-4 rounded bg-gray-200 p-2 z-15 dark:bg-gray-800"
-          onClick={() => setDarkMode(!darkMode)}
-        >
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
-        <div className="absolute inset-0 z-0">
-          <DotGrid darkMode={darkMode} />
-        </div>
-        <main className="relative z-10 flex min-h-screen flex-col items-center justify-between p-24">
-          <div className="mt-10 text-center">
-            <h1 className="text-2xl font-bold">Portfolio</h1>
-            <p className="mt-2 text-gray-600">
-              My personal portfolio showcasing my projects and skills.
-            </p>
-          </div>
-        </main>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <DotGrid darkMode={theme === 'dark'} />
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        Toggle Theme
+      </button>
+      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+       
       </div>
-    </div>
+    </main>
   );
 }
+
