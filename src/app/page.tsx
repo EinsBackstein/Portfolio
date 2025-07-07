@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <div className="relative min-h-screen bg-background text-foreground">
+      <div className="relative min-h-screen bg-background text-foreground font-[family-name:var(--font-manrope)]">
         <button
           className="absolute top-4 right-4 rounded bg-gray-200 p-2 z-15 dark:bg-gray-800"
           onClick={() => setDarkMode(!darkMode)}
@@ -17,7 +17,7 @@ export default function Home() {
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
         <div className="absolute inset-0 z-0">
-          <DotGrid />
+          <DotGrid darkMode={darkMode} />
         </div>
         <main className="relative z-10 flex min-h-screen flex-col items-center justify-between p-24">
           <div className="mt-10 text-center">

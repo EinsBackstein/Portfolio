@@ -5,16 +5,26 @@ import React, { useRef, useEffect } from 'react';
 const DOT_RADIUS = 2;
 const OPACITY_DEFAULT = 0.1;
 const OPACITY_TARGET = 1;
-const OPACITY_STEP = 0.1;
+const OPACITY_STEP = 0.02; // Adjusted for smoother fade
 const IMPACT_DEFAULT = 80;
 const IMPACT_CLICK = 160;
-const ACCENT_COLOR = "60, 204, 65";
+const ACCENT_COLOR_DARK = "60, 204, 65";
+const ACCENT_COLOR_LIGHT = "1, 90, 223";  
 
-const DotGrid: React.FC = () => {
+const TRAIL_DURATION = 1500; // milliseconds
+const TRAIL_IMPACT = 100; // pixels
+
+interface DotGridProps {
+  darkMode: boolean;
+}
+
+const DotGrid: React.FC<DotGridProps> = ({ darkMode }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
   const dotsRef = useRef<any[]>([]);
   const mouseRef = useRef({ x: 0, y: 0, moved: false, clicked: false });
+  const mouseTrailRef = useRef<{ x: number; y: number; timestamp: number }[]>([]);
+  const lastTrailPointTimeRef = useRef(0);
   const spreadRef = useRef(22);
 
   useEffect(() => {
@@ -69,11 +79,13 @@ const DotGrid: React.FC = () => {
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
 
-
     let animationFrameId: number;
     const render = () => {
       if (!context) return;
       context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Use the current darkMode value for color
+      const accentColor = darkMode ? ACCENT_COLOR_DARK : ACCENT_COLOR_LIGHT;
 
       dotsRef.current.forEach(dot => {
         let step = OPACITY_STEP;
@@ -108,7 +120,7 @@ const DotGrid: React.FC = () => {
         }
 
         context.beginPath();
-        context.fillStyle = `rgba(${ACCENT_COLOR}, ${dot.currentOpacity})`;
+        context.fillStyle = `rgba(${accentColor}, ${dot.currentOpacity})`;
         context.fillRect(dot.x, dot.y, DOT_RADIUS, DOT_RADIUS);
       });
       
@@ -128,7 +140,7 @@ const DotGrid: React.FC = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [darkMode]); // Add darkMode as a dependency
 
   return <canvas ref={canvasRef} className="bg-canvas" />;
 };
