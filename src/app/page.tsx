@@ -1,6 +1,5 @@
 "use client";
 
-
 import DotGrid from "@/components/DotGrid";
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -8,11 +7,12 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [resolvedTheme, setResolvedTheme] = useState(theme);
 
-  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
-  }, []);
+    setResolvedTheme(theme);
+  }, [theme]);
 
   if (!mounted) {
     return null;
@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <DotGrid darkMode={theme === 'dark'} />
+      {resolvedTheme && <DotGrid darkMode={resolvedTheme === 'dark'} />}
       <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
         Toggle Theme
       </button>
