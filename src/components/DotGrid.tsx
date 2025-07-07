@@ -70,13 +70,15 @@ const DotGrid: React.FC<DotGridProps> = ({ darkMode }) => {
         mouseRef.current.clicked = false;
     };
 
+    const handleResize = () => {
+      setCanvasSize();
+      createDots();
+    };
+
     setCanvasSize();
     createDots();
 
-    window.addEventListener('resize', () => {
-      setCanvasSize();
-      createDots();
-    });
+    window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
@@ -133,10 +135,7 @@ const DotGrid: React.FC<DotGridProps> = ({ darkMode }) => {
     render();
 
     return () => {
-      window.removeEventListener('resize', () => {
-        setCanvasSize();
-        createDots();
-      });
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
