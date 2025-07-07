@@ -11,8 +11,12 @@ const IMPACT_CLICK = 160;
 const ACCENT_COLOR_DARK = "60, 204, 65";
 const ACCENT_COLOR_LIGHT = "1, 90, 223";  
 
-const TRAIL_DURATION = 1500; // milliseconds
-const TRAIL_IMPACT = 100; // pixels
+interface Dot {
+  x: number;
+  y: number;
+  currentOpacity: number;
+  targetOpacity: number;
+}
 
 interface DotGridProps {
   darkMode: boolean;
@@ -21,10 +25,8 @@ interface DotGridProps {
 const DotGrid: React.FC<DotGridProps> = ({ darkMode }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-  const dotsRef = useRef<any[]>([]);
+  const dotsRef = useRef<Dot[]>([]);
   const mouseRef = useRef({ x: 0, y: 0, moved: false, clicked: false });
-  const mouseTrailRef = useRef<{ x: number; y: number; timestamp: number }[]>([]);
-  const lastTrailPointTimeRef = useRef(0);
   const spreadRef = useRef(22);
 
   useEffect(() => {
