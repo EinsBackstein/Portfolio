@@ -2,8 +2,8 @@
 
 import React, { useRef, useEffect } from 'react';
 
-const DOT_RADIUS = 2;
-const OPACITY_DEFAULT = 0.1;
+const DOT_RADIUS = 1.5;
+const OPACITY_DEFAULT = 0.02;
 const OPACITY_TARGET = 1;
 const OPACITY_STEP = 0.02; // Adjusted for smoother fade
 const IMPACT_DEFAULT = 80;

@@ -1,6 +1,6 @@
 'use client';
 
-import DotGrid from '@/components/DotGrid';
+import DotGrid from '@/components/background/DotGrid';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
