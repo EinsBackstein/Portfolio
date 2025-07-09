@@ -2,25 +2,28 @@
 
 import DotGrid from '@/components/DotGrid';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // Render nothing on the server and on the initial client render until the theme is resolved.
-  if (!resolvedTheme) {
-    return null;
-  }
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <DotGrid darkMode={resolvedTheme === 'dark'} />
-      <button onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
-        Toggle Theme
+      <DotGrid darkMode={mounted ? resolvedTheme === 'dark' : false} />
+      <button 
+        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+        disabled={!mounted}
+      >
+        {mounted ? 
+          (resolvedTheme === 'dark' ? 'Switch to Light' : 'Switch to Dark') : 
+          'Loading Theme...'
+        }
       </button>
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-       
-      </div>
     </main>
   );
 }
-
