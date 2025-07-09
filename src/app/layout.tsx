@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
 
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -30,7 +31,12 @@ export default function RootLayout({
       <body
         className={`${manrope.variable} ${jetbrains.variable}  antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="system" 
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
           <Analytics />
           <SpeedInsights />

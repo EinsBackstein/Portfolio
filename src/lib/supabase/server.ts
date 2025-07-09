@@ -1,37 +1,28 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 
-export const createClient = (cookieStore: unknown) => {
-  if (typeof (cookieStore as any)?.then === 'function') {
-    throw new Error(
-      'You must pass the resolved value of cookies() (i.e., await cookies()) to createClient. See https://nextjs.org/docs/messages/sync-dynamic-apis'
-    );
-  }
+export async function createClient() {
+  const cookieStore = await cookies()
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          
-          return (cookieStore as any).get(name)?.value;
+        getAll() {
+          return cookieStore.getAll()
         },
-        set(name: string, value: string, options: CookieOptions) {
+        setAll(cookiesToSet) {
           try {
-            
-            (cookieStore as any).set({ name, value, ...options });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            )
           } catch {
-            // Ignore errors from set in server components
-          }
-        },
-        remove(name: string, options: CookieOptions) {
-          try {
-           
-            (cookieStore as any).set({ name, value: '', ...options });
-          } catch {
-            // Ignore errors from set in server components
+            // The `setAll` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
           }
         },
       },
     }
-  );
-};
+  )
+}
