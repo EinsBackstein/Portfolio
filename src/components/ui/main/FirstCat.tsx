@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Start = () => {
+const FirstCat = () => {
   return (
     <div className=''></div>
   )
 }
 
-export default Start
+export default FirstCat

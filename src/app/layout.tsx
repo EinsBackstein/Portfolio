@@ -6,6 +6,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
+import TopBar from "@/components/navigation/TopBar";
+
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
@@ -37,6 +39,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <TopBar />
           {children}
           <Analytics />
           <SpeedInsights />

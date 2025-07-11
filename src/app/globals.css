@@ -133,4 +133,17 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  .glass-effect {
+    @apply bg-white/30 backdrop-blur-md shadow-lg;
+  }
+}
+
+/* Hide scrollbar globally */
+html {
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* WebKit */
 }
