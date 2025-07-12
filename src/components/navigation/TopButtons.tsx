@@ -13,16 +13,7 @@ const TopButtons: React.FC<StartProps> = ({
 }) => {
   return (
     <main>
-      <button
-        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-        disabled={!mounted}
-      >
-        {mounted
-          ? resolvedTheme === 'dark'
-            ? 'Switch to Light'
-            : 'Switch to Dark'
-          : 'Loading Theme...'}
-      </button>
+
     </main>
   );
 };
