@@ -9,7 +9,11 @@ import { Menu, Sun, Moon, AlignJustify } from 'lucide-react';
 const ACCENT_COLOR_DARK = "60,204,65";
 const ACCENT_COLOR_LIGHT = "1,90,223"; 
 
-const TopBar = () => {
+interface TopBarProps {
+  setSidebarOpen: (isOpen: boolean) => void;
+}
+
+const TopBar: React.FC<TopBarProps> = ({ setSidebarOpen }) => {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
@@ -36,7 +40,7 @@ const TopBar = () => {
     <main className="flex items-center justify-between p-4 bg-background font-[family-name:var(--font-manrope)] antialiased text-foreground">
       <div className="flex-1 text-left flex flex-row items-center space-x-4">
         {/* Left Part - Sidebar Module */}
-        <AlignJustify className="h-7 w-7 cursor-pointer" />
+        <AlignJustify className="h-7 w-7 cursor-pointer" onClick={() => setSidebarOpen(true)} />
         <div className="relative">
           <button
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
@@ -61,7 +65,7 @@ const TopBar = () => {
                   duration: 0.3,
                   ease: "easeInOut" 
                 }}
-                className="absolute top-full mt-2 px-2 py-1 bg-foreground text-background text-sm rounded shadow-lg whitespace-nowrap z-10 antialiased"
+                className="absolute font-semibold top-full mt-2 px-2 py-1 bg-foreground text-background text-sm rounded shadow-lg whitespace-nowrap z-10 antialiased"
                 style={{
                   WebkitFontSmoothing: 'antialiased',
                   MozOsxFontSmoothing: 'grayscale',

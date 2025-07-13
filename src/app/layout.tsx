@@ -4,9 +4,17 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme/theme-provider";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import MainLayout from "@/components/navigation/MainLayout";
 
+export const metadata: Metadata = {
+  title: "Julian's Portfolio",
+  description: "My personal portfolio showcasing my projects and skills.",
+  authors: [{ name: "Julian Nott"}],
+  category: "Portfolio",
+  keywords: ["Portfolio", "Development", "Projects", "Skills"],
+  creator: "Julian Nott",
 
-import TopBar from "@/components/navigation/TopBar";
+};
 
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -17,11 +25,6 @@ const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "Julian's Portfolio",
-  description: "My personal portfolio showcasing my projects and skills.",
-};
 
 export default function RootLayout({
   children,
@@ -39,8 +42,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TopBar />
-          {children}
+          <MainLayout>{children}</MainLayout>
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>
